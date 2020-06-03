@@ -9,10 +9,16 @@ import { BrowserRouter , Link } from "react-router-dom";
 import RouterPath from './route'
 
 // ui框架
-import { Button,Menu } from 'antd';
-import { MailOutlined, AppstoreOutlined, SettingOutlined } from '@ant-design/icons';
-import './App.css';
+import { Button,Menu,Avatar } from 'antd';
+import { MailOutlined, AppstoreOutlined, UserOutlined } from '@ant-design/icons';
+import './App.scss';
+
+// 其他组件
+import UserHead from './view/userHead'
+
+
 const { SubMenu } = Menu;
+
 
 class App extends React.Component {
   constructor(props){
@@ -23,66 +29,15 @@ class App extends React.Component {
     return (
       // 空标签
       <div id='App'>
-        {/* 导航栏 */}
-
-        <div className='menuBox'>
-          <Menu onClick={this.props.handleSetKeyClick} selectedKeys={[this.props.current]} mode="horizontal" theme="dark">
-            <Menu.Item key="home" icon={<MailOutlined />}>
-              <Link  to={`/main/home`}>
-                home
-              </Link>
-            </Menu.Item>
-
-            <Menu.Item key="about" icon={<MailOutlined />}>
-              <Link to={`/main/about`}>
-                about
-              </Link>
-            </Menu.Item>
-
-            <Menu.Item key="iframe" icon={<MailOutlined />}>
-              <Link to={`/main/iframe`}>
-                iframe
-              </Link>
-            </Menu.Item>
-
-            <Menu.Item key="mail3" icon={<MailOutlined />}>
-              Navigation One
-            </Menu.Item>
-
-            <Menu.Item key="mail4" icon={<MailOutlined />}>
-              Navigation One
-            </Menu.Item>
-
-            <Menu.Item key="mail5" icon={<MailOutlined />}>
-              Navigation One
-            </Menu.Item>
-
-            <Menu.Item key="logout" icon={<AppstoreOutlined />}>
-              <Link to={`/login`}>
-                Log Out
-              </Link>
-            </Menu.Item>
-
-            <SubMenu icon={<SettingOutlined />} title="Navigation Three - Submenu">
-              <Menu.ItemGroup title="Item 1">
-                <Menu.Item key="setting:1">Option 1</Menu.Item>
-                <Menu.Item key="setting:2">Option 2</Menu.Item>
-              </Menu.ItemGroup>
-              <Menu.ItemGroup title="Item 2">
-                <Menu.Item key="setting:3">Option 3</Menu.Item>
-                <Menu.Item key="setting:4">Option 4</Menu.Item>
-              </Menu.ItemGroup>
-            </SubMenu>
-
-            <Menu.Item key="alipay">
-              <a href="https://ant.design" target="_blank" rel="noopener noreferrer">
-                Navigation Four - Link
-              </a>
-            </Menu.Item>
-          </Menu>
-          </div>
-
         {/* 路由 */}
+        <div className='header'>
+          <div className='name'>悦呗saas平台</div>
+
+          <div className='logout'>
+            <div onClick={this.backHome.bind(this)}><Avatar size={22} icon={<UserOutlined />}></Avatar> 13159602985</div>
+            <div onClick={this.logOut.bind(this)}> 退出登录</div>
+          </div>
+        </div>
         <RouterPath/>
       </div>
     );
@@ -93,24 +48,38 @@ class App extends React.Component {
     // 监听路由，防止不登录直接进入
     this.props.history.listen(route => {
       var UserInfo = JSON.parse(localStorage.getItem('UserInfo'))
-      if(route.pathname!='/login'){
+      if(route.pathname!='/'){
         if(!UserInfo){
-          this.props.history.push(`/login`)
+          this.props.history.push(`/`)
         }
       }
     })
 
-    // 根据缓存里的menuKey加载页面防止标题和页面对不上的问题
-    var MenuKey = sessionStorage.getItem('MenuKey')
-    if(MenuKey!='null'&&MenuKey!=null){
-      this.props.history.push(`/main/${MenuKey}`)
-      this.props.handleSetKeyClick({key:MenuKey})
-    }else{
-      this.props.history.push(`/main/home`)
-      this.props.handleSetKeyClick({key:'home'})
-    }
+    // // 根据缓存里的menuKey加载页面防止标题和页面对不上的问题
+    // var MenuKey = sessionStorage.getItem('MenuKey')
+    // if(MenuKey!='null'&&MenuKey!=null){
+    //   this.props.history.push(`/main/${MenuKey}`)
+    //   this.props.handleSetKeyClick({key:MenuKey})
+    // }else{
+    //   this.props.history.push(`/main/home`)
+    //   this.props.handleSetKeyClick({key:'home'})
+    // }
   }
+
+  // 返回个人中心
+  backHome(){
+    this.props.history.push('/main/home')
+  }
+
+  // 登出
+  logOut(){
+    this.props.history.push('/')
+  }
+    
 }
+
+    
+
 
 // redux中获取参数
 const mapStateProps=(state)=>{

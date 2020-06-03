@@ -1,0 +1,36 @@
+@import '~antd/dist/antd.css';
+*{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+}
+#App{
+  /* padding-top: 110px; */
+  .header{
+    width: 100%;
+    height: 30px;
+    display: flex;
+    justify-content: space-between;
+    line-height: 30px;
+    font-size: 14px;
+    color: #333;
+    .name{
+      padding-left: 5px;
+    }
+    .logout{
+      display: flex;
+      padding-right: 5px;
+      div{
+          &:nth-child(1){
+            cursor: pointer;
+          }
+          &:nth-child(2){
+            color: #85a5ff;
+            margin-left: 5px;
+            cursor: pointer;
+          }
+      }
+    }
+  }
+}

@@ -1,51 +1,49 @@
-import React from 'react'; 
-import {withRouter} from 'react-router-dom'
-import {Button} from 'antd'
-import {connect} from 'react-redux'
+import React from 'react';
+import { withRouter } from 'react-router-dom'
 
-import { groupAdminStatistics } from '../../api/user'
+// antd
+import { Button } from 'antd'
 
+// redux
+import { connect } from 'react-redux'
 import actionCreators from '../../store/actionCreators'
 
-class Home extends React.Component{
-    constructor(porps){
-        super(porps)
-    }
-    componentDidMount(){
-        // console.log(this.props)
-        this.getList()
-    }
-    render(){
-        return (
-            <div>
-                <Button onClick={this.props.homeHref.bind(this)}>跳转about</Button>
-            </div>
-        )
-    }
+// 接口
+import { groupAdminStatistics } from '../../api/user'
 
-    // homeHref(){
-        // this.props.history.push(`/main/about`)
-    // }
-    getList(){
-      groupAdminStatistics({}).then(res => {
-      });
-    }
+// 其他组件
+import UserHead from './userHead'
+
+// es6 class写法
+class Home extends React.Component {
+  constructor(porps) {
+    super(porps)
+  }
+  // 这个生命周期=vue的mounted
+  componentDidMount() {
+    // console.log(this.props)
+    // this.getList()
+  }
+  // jsx写法 div写在这里
+  render() {
+    return (
+      <div>
+        <UserHead></UserHead>
+        <Button onClick={this.homeHref.bind(this)}>跳转iframe</Button>
+      </div>
+    )
+  }
+
+  // 获取接口数据
+  getList() {
+    groupAdminStatistics({}).then(res => {
+    });
+  }
+
+  homeHref() {
+    this.props.history.push(`/main/iframe`)
+  }
 }
 
-const mapStateProps=(state)=>{
-    return {
-       
-    }
-  }
-  
-  const mapDispatchProps=(dispatch)=>{
-    return {
-      homeHref(){
-        this.props.history.push(`/main/about`)
-        const action = actionCreators.MenuSetKey('about')
-        dispatch(action)
-      }
-    }
-  }
-
-export default connect(mapStateProps,mapDispatchProps)(withRouter(Home))
+// connect是redux写法 withRouter是loadable懒加载的
+export default withRouter(Home)

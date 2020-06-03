@@ -18,8 +18,6 @@ ReactDOM.render(
         <Switch>
           {/* 官网 */}
           <Route path='/' exact component={Gw}/>
-          {/* 登录页 */}
-          <Route path='/login' component={Login}/>
           {/* 正常页 */}
           <Route path='/main' component={App}/>
           {/* 404 */}
