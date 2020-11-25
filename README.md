@@ -5,4 +5,4 @@ In the project directory, you can run:
 
 ### `npm install`
 ### `npm run start`
-此项目适合react小白和想要快速使用搭建react项目的人使用，省去了配置react插件和服务的事件。
+此项目适合react小白和想要快速使用搭建react项目的人使用，省去了配置react插件和服务的时间。
